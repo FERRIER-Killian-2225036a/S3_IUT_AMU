@@ -40,3 +40,5 @@ API C:
 		
 	String vers in_addr : int inet_aton(const char *cp, struct in_addr *inp);
 	addr vers string : char * inet_ntoa(<chaine charac>, &<recepteur de la chaine dans le bon type>)
+
+	
