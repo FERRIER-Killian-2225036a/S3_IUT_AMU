@@ -1,2 +1,17 @@
 04/09/23
 Bas niveau : Socket
+Rappel des moyens de communications
+
+IPC = communication inter processus
+Sockets permet la comm de données entre app d'une même machine ou machine connecté sur mm réseau
+2 types : 
+	- Domaine UNIX
+	- Domaine Internet (IPv4, IPv6) : mode TCP, UDP, etc
+
+Ajout d'une socket active par client connecté (Côté client et serveur)
+Communique entre elles pour envoyer et recevoir données (Bidirectionnel)
+
+Plusieurs API de socket:
+	API en C utilisé dans le cours
+	Permet de faire plus de choses
+	(Image schéma général client/serveur TCP en C)
