@@ -15,3 +15,28 @@ Plusieurs API de socket:
 	API en C utilisé dans le cours
 	Permet de faire plus de choses
 	(Image schéma général client/serveur TCP en C)
+
+API C:
+	requis : #include <sys/socket.h>
+	Fonction socket -> 3 parametre int (domain, type, protocol):
+		Domaine : utilisation de AF_INET = comm IPv4
+			@ IPv4 de 32 bits + port 16 bits. Type @ = struct sockaddr_in
+		Type : pour domaine AF_INET : 
+			- SOCK_STREAM : mode TCP
+			- SOCK_DGRAM : mode UDP
+			- SOCK_RAW : mode brut (comm avec ip direct)
+		Protocol: par défaut a 0
+
+		exemple en C : int sock_serveur = socket(AF_INET, SOCK_STREAM, 0);
+
+	Fonction bind : affecte @ socket par addr a socket référencée par sockfd
+
+	exemple struct sockaddr_in:
+		struct sockaddr_in
+		{   sa_family_t sin_family; //vaut AF_INET
+			uint16_t    sin_port;   //port dans l'ordre
+			struct in_addr sin_addr; //@ Ip
+		};
+		
+	String vers in_addr : int inet_aton(const char *cp, struct in_addr *inp);
+	addr vers string : char * inet_ntoa(<chaine charac>, &<recepteur de la chaine dans le bon type>)
