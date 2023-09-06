@@ -1,0 +1,28 @@
+06/09/23
+
+interpreteur php en ligne 3v41.org
+<?= > Affiche direct comme avec echo
+Variable : $variable = 1;
+	$a = 10;
+	$b = &$a; => mm adresse var
+
+heredoc : $c = <<<EOT
+			chaine string
+			EOT;
+
+array associatif : $tab = array('a' => 'b', 'c' => 'd')
+
+initialiser avec $bar = new \Foo();
+$b = $bar->fonctionFoo(val);
+
+Variable prédefini <superglobales>
+
+?string : soit string soit null
+int|float : soit un int soit un float
+
+require + utiliser car produit erreur fatale
+
+convention php : php-fig.org/psr/
+
+
+CM2
