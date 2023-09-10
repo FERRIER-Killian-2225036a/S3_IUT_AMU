@@ -1,9 +1,29 @@
 08/09/23
 
+
+Chapitre 1:
+
+Objectif -> définir l'ensemble des besoins du projet (fonctionnel ou technique)
+Pourquoi spécifier :
+	- coller aux attentes du client
+	- constat : 45% des livrables utilisé (il faut un échange constant entre les acteurs)
+Spec. fonctionnelles:
+	- point de vu utilisateur : ses besoins
+	- Comment ca fonctionne
+Spec. Technique:
+	- implémentation interne : comment passer a un produit qui fonctionne
+	- pdv implémentation : pas parler de technique sans contact
+Quelles méthodes pour rédiger les spec ?
+	- limite des approches gardi
+	- avantage des approches agiles
+
 Types de gestion dans le temps : 
 	Cycle en cascade
 	Cycle en V
 	Pas les mêmes personnes qui vont valider les livrables tout au long du projet
+
+Modèle en cascade (tous les pairs = livrables a faire valider):
+	Analyse préalable -> Avant projet -> conception -> cahier des charges -> dev -> Dossier d'implémentation -> implantation -> solution -> maintenance
 
 Approche agile + pratique car s'adapte a l'évolution du projet et des attentes clients
 	Valeurs : 
