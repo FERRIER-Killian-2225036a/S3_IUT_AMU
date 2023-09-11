@@ -25,4 +25,27 @@ require + utiliser car produit erreur fatale
 convention php : php-fig.org/psr/
 
 
-CM2
+11/09/23
+Library externe autorisé que pour HTML, CSS mais php vanilla
+
+Ordre important pour session_start() puis header()
+
+Protocole de comm:
+	$_GET et $_POST
+
+get pour partager les liens
+
+filter_input pratique pour mettre les bonnes valeurs non défini (null, '') sur des variables non défini
+
+client = ergonomie (pas de sécu)
+serveur = test
+bdd = test = intégrité
+
+éteindre serveur en cas d'attaque plutôt que de lutter a condition d'avoir fait des backups
+
+se fait attaquer si on montre ou parle aux hackers
+
+fermer la connexion aux pays de l'EST car tous les hackers passe pas ca 
+
+Plus importante notion en info : RGEX
+
