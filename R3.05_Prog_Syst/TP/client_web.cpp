@@ -12,9 +12,12 @@
 void func(int sockfd)
 {
 	char buff[MAX];
-	int n;
+	int temp;
+	bzero(buff, sizeof(buff));
+	strcpy(buff, "GET /tp1.html\r\n");
+	write(sockfd, buff, sizeof(buff));
+
 	for (;;) {
-		int temp;
 		bzero(buff, sizeof(buff));
 		temp = read(sockfd, buff, sizeof(buff));
 		
@@ -26,7 +29,7 @@ void func(int sockfd)
 	}
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	int sockfd, connfd;
 	struct sockaddr_in servaddr, cli;
@@ -42,9 +45,12 @@ int main()
 	bzero(&servaddr, sizeof(servaddr));
 
 	// assigner IP, PORT
+	char *iparg = argv[1];
+	char *portarg= argv[2];
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	servaddr.sin_port = htons(PORT);
+	servaddr.sin_addr.s_addr = inet_addr(iparg);
+	unsigned short port = (unsigned short) strtoul(portarg, NULL, 0);
+	servaddr.sin_port = htons(port);
 
 	// connecter le client socket au serveur socket
 	if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr))
@@ -53,7 +59,7 @@ int main()
 		exit(0);
 	}
 	else
-		printf("connexiox au serveur réussi..\n");
+		printf("connexion au serveur réussi..\n");
 
 	// function pour recupere les données
 	func(sockfd);
