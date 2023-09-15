@@ -49,3 +49,9 @@ fermer la connexion aux pays de l'EST car tous les hackers passe pas ca
 
 Plus importante notion en info : RGEX
 
+MVC = Routeur/vue, controler, modèle
+	Routeur : une vue par modèle et correspond a l'affichage
+	Controler : récupère les info du user et va diriger les autres
+	Modèle : Base de donnée 
+Avantage bien séparé le code
+Routeur appel controleur qui appel le modèle
