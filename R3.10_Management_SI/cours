@@ -74,3 +74,76 @@ Recommandation méthodologie :
 	- Importance de la rédaction :
 		- Rédiger par story : besion associé à une fonctionnalité à réal
 		- Rédiger par itération : pas seulement en début de projet
+
+
+15/09/23
+
+
+Chapitre 2: NGAAMA
+
+Pourquoi estimer ? Pour prévenir les risques 
+
+Estimation :
+	Obj: estimer la charge associé aux tâches
+		- quels sont les besoins en ressources
+		- comment orga le travail
+		- quand sera fini le projet
+		- quelle fonctio en prio
+	
+	Planif pilote:
+		Coût -> fonction-technique -> planning -> Coût -> ...
+		Importance de l'estim du planning et des charge financ
+
+	Charges:
+		Base: 
+			- specification
+			- conception
+			- développement
+			- Tests
+		Support:
+			- gestion
+			- qualité
+			- sécurité
+		Accompagnement:
+			- besoins
+			- formation
+
+	Quelles tecniques:
+		- taille
+		- durée
+
+	Technique simple:
+		- méthode delphi : s'appui  sur l'expertise et les convergences d'estimation (quand on sait pas trop ou on va)
+		- méthode par analogie : des projets similaires servent de références
+
+	Ligne de code: 
+		modèle COCOMO (constructive cost model) fournit un algo dérivant une estim de l'éffort "en homme mois" à partir d'une estim de la taille "en ligne de code"
+
+	Point de fonction:
+		Estim de la taille d'un projet à partir de fonctio livrés à l'utilisateur indépendament des techniques utilisées
+
+	Quelles recommandations ?
+		- eviter de deviner
+		- prévoir du temps 
+		- utiliser les données de projets précédents
+		- estimer par consensus
+		- ne pas oublier les tâches récurrentes dans l'estimation
+		- utiliser plusieurs techniques d'estimation
+
+	Approche agile:
+		Coût -> delai -> fonction-technique -> Coût -> ...
+
+	Ideal days:
+		- Le nombre de jours d'éffort que l'équipe prendrait pour réaliser une story
+		- Temps de travail réel de l'équipe dans une journée sans interup
+
+	Story points:
+		- Le nombre de points représentant la taille d'une story
+		- Estimation des efforts pour dev une fonctio : pas de focus sur la durée
+
+	Remarque : la taille peut nous aider a calc la durée du proj
+		Taille du proj (nb total de points des stories) -> calc vélocité de l'équipe (nb de points réal en 1 sprint) -> durée du proj (nb d'iter de spint (taille/vélo))
+
+	Planning poker:
+		- Estim de façon iter en utilisant des cartes (liste modif de fibo)
+		- Permet d'estim en story point
