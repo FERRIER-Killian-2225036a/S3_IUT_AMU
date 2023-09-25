@@ -1,0 +1,185 @@
+-- EXERCICE 1
+
+    -- Question 1.1
+CREATE or replace trigger new_controle
+BEFORE
+INSERT OR UPDATE ON CONTROLE
+for each row
+BEGIN
+    
+    -- Vérification date de fin existe
+    IF ( :new.DateFin IS NULL )
+        THEN :new.DateFin := :new.DateDeb;
+    END IF;
+    
+    -- Vérification date fin selon types
+    IF ( :new.TypeC IN 'tests', 'tests rattrapages', 'interrogations' )
+        THEN :new.DateFin := :new.DateDeb;
+    END IF;
+    
+    -- Note par défaut note max
+    IF ( :new.NoteMax IS NULL )
+        THEN :new.NoteMax := 20;
+    END IF;
+    
+END ;
+
+
+
+    -- Question 1.2
+CREATE or replace trigger calcul_note_definitive
+BEFORE
+INSERT OR UPDATE ON NOTATION
+for each row
+DECLARE
+    Max CONTROLE.NoteMax%TYPE;
+BEGIN
+    
+    -- Recuperation note max
+    SELECT NoteMax INTO Max
+    FROM CONTROLE, NOTATION
+    WHERE CONTROLE.IdC = :new.IdC ;
+    
+    -- Calcul note definitive
+    :new.NoteDefinitive := (:new.Note * 20) / max;
+    
+END ;
+
+
+
+-- EXERCICE 2
+
+    -- Question 2.1
+CREATE or replace trigger verif_pour_emprunt
+BEFORE
+INSERT ON EMPRUNT
+for each row
+DECLARE
+    nbr_livre_en_cours integer;
+BEGIN
+    -- compte nombre livre en cours d'emprunt
+    SELECT COUNT(CodBar) INTO nbr_livre_en_cours
+    FROM EMPRUNT
+    WHERE IdA = :new.IdA
+    AND DateRet IS NULL ;
+    
+    -- verification nombre
+    IF ( nbr_livre_en_cours > 5 )
+        THEN RAISE_APPLICATION_ERROR(0, 'Trop de livre en emprunté en même temps');
+    END IF;
+END ;
+
+
+    -- Question 2.2
+CREATE or replace trigger miseAJour_nbrLivreEmprunte
+BEFORE
+INSERT OR UPDATE OF DateRet ON EMPRUNT
+for each row
+BEGIN
+    -- Si ajout emprunt
+    IF INSERTING
+        THEN UPDATE ABONNE SET NbEmprunt:=NbEmprunt+1 WHERE idA = :new.IdA ;
+    -- Si retour
+    ELSE IF UPDATING
+        THEN IF ( :new.DateRet IS NOT NULL)
+            THEN UPDATE ABONNE SET NbEmprunt:=NbEmprunt-1 WHERE idA = :new.IdA ;
+        END IF;
+    END IF;
+END ;
+
+
+    -- Question 2.3
+CREATE or replace trigger avertir_personne_apresRetour
+AFTER
+UPDATE OF DateRet ON EMPRUNT
+for each row
+DECLARE
+    idP ABONNE.IdA%TYPE;
+    nomP ABONNE.nom%TYPE;
+    prenomP ABONNE.prenom%TYPE;
+    adrP ABONNE.Adresse%TYPE;
+    date_personne DATE;
+BEGIN
+
+    -- Recuperation date + vieille reservation
+    SELECT MAX(RESERV.DateR) INTO date_personne
+    FROM RESERV
+    WHERE :new.CodBar = EXEMPLAIRE.CodBar
+    AND EXEMPLAIRE.idL = RESERV.IdL;
+    
+    -- Recuperation personne correspondante
+    SELECT idA, Nom, Prenom, Adresse INTO idP, nomP, prenomP, adresseP
+    FROM RESERV
+    WHERE :new.CodBar = EXEMPLAIRE.CodBar
+    AND EXEMPLAIRE.idL = RESERV.IdL;
+    AND date_personne = RESERV.DateR; 
+    
+    -- Avertir personne
+    Avertir (nomP, prenomP, adresseP );
+    
+    -- Changement valeur attribut contact
+    UPDATE RESERV SET Contact:='Oui' WHERE idA = idP ;
+END ;
+
+
+
+-- EXERCICE 3
+
+    -- Exercice 3.1
+CREATE or replace trigger verificationThemeSejour
+BEFORE
+INSERT ON SEJOUR
+for each row
+BEGIN
+    IF ( :new.Theme IS NOT IN 'Astronomie', 'Nature', 'Tir a l arc')
+        THEN RAISE_APPLICATION_ERROR(0, 'Theme invalide');
+    END IF;
+END ;
+
+
+    -- Exercice 3.2
+CREATE or replace trigger AnnulationEnfant
+AFTER
+DELETE ON INSCRIPTION
+for each row
+BEGIN
+    UPDATE SEJOUR SET Effectif:=Effectif-1 WHERE :old:IdS = IdS; 
+END ;
+
+
+    -- Exercice 3.3
+CREATE or replace trigger inscriptionEnfant
+BEFORE
+INSERT ON INSCRIPTION
+for each row
+DECLARE
+    nbrEnfant integer;
+    nbrEnfantMax integer;
+    age_min integer;
+    age_enfant integer;
+BEGIN
+    
+    -- recuperation nbr enfant inscrit
+    SELECT nbE INTO nbrEnfant FROM SEJOUR WHERE IdS = :new.IdS;
+    
+    -- recuperation nbr enfant max
+    SELECT Effectif INTO nbrEnfantMax FROM SEJOUR WHERE IdS = :new.IdS;
+    
+    -- Verification reste place sejour
+    IF ( nbrEnfant = nbrEnfantMax )
+        THEN RAISE_APPLICATION_ERROR(0, 'Sejour complet');
+    END IF;
+    
+    -- recuperation age minimum
+    SELECT AgeMin INTO age_min FROM SEJOUR WHERE IdS = :new.IdS;
+    
+    
+    -- recuperation age enfant
+    SELECT AgeE INTO age_enfant FROM ENFANT WHERE IdE = :new.IdE;
+    
+    --  age de l'enfant est ok
+    IF ( age_min > age_enfant)
+        THEN RAISE_APPLICATION_ERROR(0, 'Enfant trop petit pour ce sejour');
+    END IF;
+END ;
+    
