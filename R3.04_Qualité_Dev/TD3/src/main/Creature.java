@@ -1,25 +1,44 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public abstract class Creatures {
+public abstract class Creature {
     protected String nom;
     protected int age;
     protected int sexe; // 0 = male; 1 = femelle
-    protected int poids;
-    protected int taille;
-    protected ArrayList<?> type = getTypeName();
-
-    protected int indicateurFaim = 0;
-    protected int indicateurSante = 100;
-    protected int indicateurSommeil = 0;
+    protected int poids; // En kg
+    protected int taille; // En cm
+    protected ArrayList<?> type = getTypeName(); // Nom de l'interface
+    protected int dureeDeVie = 50; // En années
+    protected int indicateurFaim = 0; // De 0 a 100
+    protected int indicateurSante = 100; // De 100 a 0
+    protected int indicateurSommeil = 0; // De 0 a 100
     protected boolean dortIl = false;
-    protected boolean estMort = false;
+    protected boolean estMorte = false;
 
+    public static class InstanceManager {
+        private static final ArrayList<Creature> instances = new ArrayList<>();
 
-    void manger() {
-        if (!estMort){
+        private static void addInstance(Creature instance) {
+            instances.add(instance);
+        }
+
+        public static ArrayList<Creature> getAllInstances() {
+            return instances;
+        }
+    }
+
+    public Creature(String nom, int age, int sexe, int poids, int taille) {
+        this.nom = nom;
+        this.age = age;
+        this.sexe = sexe;
+        this.poids = poids;
+        this.taille = taille;
+        InstanceManager.addInstance(this);
+    }
+
+    protected void manger() {
+        if (!estMorte){
             if (!dortIl) {
                 System.out.println("Miam miam");
             } else {
@@ -30,31 +49,38 @@ public abstract class Creatures {
         }
 
     }
-    void emetUnSon() {
+    protected void emetUnSon() {
         System.out.println("La créature émet un son");
     }
-    void etreSoigne() {
-        if (!estMort) {
+    protected void etreSoigne() {
+        if (!estMorte) {
             this.indicateurSante = 100;
         } else {
             System.out.println("La créature est morte");
         }
 
     }
-    void sendormirOuSeReveiller() {
-        if (estMort){
+    protected void sendormirOuSeReveiller() {
+        if (estMorte){
             System.out.println("La créature est morte");
         } else {
             dortIl = !dortIl;
         }
 
     }
-    void vieillir() {
-        //TODO: (et mourir s’il a atteint la dernière catégorie d’âge et qu’il doit encore vieillir, ou s’il devient trop malade)
+    protected void vieillir(int annee) {
+        if (this.age<dureeDeVie) {
+            this.age += annee;
+        } else {
+            this.meurt();
+        }
     }
-    void meurt() {
-        if (!estMort) {
-            this.estMort = true;
+    protected void meurt() {
+        if (!estMorte) {
+            this.estMorte = true;
+            if (Enclos.getListCreatureDansEnclos().contains(this)) {
+                System.out.println("Vous devez enlever le cadavre de "+nom+" de son enclos");
+            }
         } else {
             System.out.println("La créature est déjà morte");
         }
@@ -79,20 +105,20 @@ public abstract class Creatures {
     private ArrayList<?> getTypeName() {
         Class<?>[] interfaces = this.getClass().getInterfaces();
         ArrayList<String> interfaceNames = new ArrayList<>();
+        // Gestion du cas où la classe n'implémente aucune interface
         if (interfaces.length > 0) {
             for (Class<?> interfaceElem : interfaces) {
                 interfaceNames.add(interfaceElem.getSimpleName());
             }
-            return interfaceNames; // Prend le nom de la première interface (Volant dans ce cas)
         } else {
             interfaceNames.add("Non spécifé");
-            return interfaceNames; // Gestion du cas où la classe n'implémente aucune interface
         }
+        return interfaceNames; // Prend le nom de la première interface (Volant dans ce cas)
     }
 
     @Override
     public String toString() {
-        return "Creatures{" +
+        return "Creature{" +
                 "nom='" + nom + '\'' +
                 ", age=" + age +
                 ", sexe='" + getSex() + '\'' +
@@ -103,7 +129,7 @@ public abstract class Creatures {
                 ", indicateurSante=" + indicateurSante +
                 ", indicateurSommeil=" + indicateurSommeil +
                 ", dortIl=" + dortIl +
-                ", estMort=" + estMort +
+                ", estMorte=" + estMorte +
                 '}';
     }
 }

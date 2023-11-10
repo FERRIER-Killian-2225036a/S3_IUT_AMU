@@ -10,16 +10,16 @@ public class Aquarium extends Enclos {
     }
 
     @Override
-    void ajouterCreature(Creatures creatures) {
-        if (creatures.type.contains("Aquatique")){
-            super.ajouterCreature(creatures);
+    public void ajouterCreature(Creature creature) {
+        if (creature.type.contains("Aquatique")){
+            super.ajouterCreature(creature);
         } else {
             System.out.println("La créature n'est pas aquatique");
         }
     }
 
     @Override
-    void nettoyer() {
+    public void nettoyer() {
         //TODO: vérification deux attribut
         super.nettoyer();
     }
@@ -32,7 +32,7 @@ public class Aquarium extends Enclos {
                 ", superficie=" + superficie +
                 ", capaciteMax=" + capaciteMax +
                 ", nombreCreaturesPresentes=" + nombreCreaturesPresentes +
-                ", creaturesPresentes=" + creaturesPresentes +
+                ", creaturePresentes=" + creaturePresentes +
                 ", degresProprete=" + degresProprete +
                 "profondeur=" + profondeur +
                 ", saliniteEau=" + saliniteEau +

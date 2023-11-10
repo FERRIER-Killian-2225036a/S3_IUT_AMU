@@ -10,5 +10,7 @@ public class Main {
         enclosDefaut.ajouterCreature(phenix);
         Aquarium aquarium = new Aquarium("Enclos Aquarium", 20, 5, 2, 5, 0);
         aquarium.ajouterCreature(phenix);
+        System.out.println(Enclos.InstanceManager.getAllInstances());
+
     }
 }

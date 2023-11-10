@@ -8,16 +8,16 @@ public class Voliere extends Enclos{
     }
 
     @Override
-    void ajouterCreature(Creatures creatures) {
-        if (creatures.type.contains("Volant")){
-            super.ajouterCreature(creatures);
+    public void ajouterCreature(Creature creature) {
+        if (creature.type.contains("Volant")){
+            super.ajouterCreature(creature);
         } else {
             System.out.println("La créature n'est pas un volant");
         }
     }
 
     @Override
-    void nettoyer() {
+    public void nettoyer() {
         //TODO: vérification toit
         super.nettoyer();
     }
