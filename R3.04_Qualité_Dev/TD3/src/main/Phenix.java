@@ -13,5 +13,6 @@ public class Phenix extends Ovipare implements Volant{
     void meurt() {
         System.out.println("La créature renée de ses cendres");
         this.indicateurSante = 100;
+        this.age = 0;
     }
 }

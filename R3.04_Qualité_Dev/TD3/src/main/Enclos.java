@@ -1,6 +1,5 @@
 package main;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Enclos {
@@ -49,25 +48,29 @@ public class Enclos {
             if (!creaturesPresentes.isEmpty()) {
                 if (creaturesPresentes.get(0).type == creatures.type) {
                     creaturesPresentes.add(creatures);
+                    System.out.println(creatures.getNom()+" placé dans l'enclos "+nom);
                 } else {
                     System.out.println("Cet enclos ne contient pas la même espèce");
                 }
             } else {
                 creaturesPresentes.add(creatures);
+                System.out.println(creatures.getNom()+" placé dans : "+nom);
             }
         } else {
-            System.out.println("Cap");
+            System.out.println("Capacité maximum de "+nom+"atteinte");
         }
 
     }
     void nourrirCreatures() {
         for (Creatures crea: creaturesPresentes) {
             crea.manger();
+            System.out.println("Les créatures ont été nourri");
         }
     }
     void nettoyer() {
         if (this.degresProprete == 0 && creaturesPresentes.isEmpty()) {
             degresProprete = 2;
+            System.out.println("L'enclos a été néttoyé");
         }
     }
 }

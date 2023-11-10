@@ -11,7 +11,7 @@ public class Aquarium extends Enclos {
 
     @Override
     void ajouterCreature(Creatures creatures) {
-        if (creatures.type.contains("aquatique")){
+        if (creatures.type.contains("Aquatique")){
             super.ajouterCreature(creatures);
         } else {
             System.out.println("La créature n'est pas aquatique");
@@ -22,5 +22,20 @@ public class Aquarium extends Enclos {
     void nettoyer() {
         //TODO: vérification deux attribut
         super.nettoyer();
+    }
+
+
+    @Override
+    public String toString() {
+        return "Aquarium{" +
+                "nom='" + nom + '\'' +
+                ", superficie=" + superficie +
+                ", capaciteMax=" + capaciteMax +
+                ", nombreCreaturesPresentes=" + nombreCreaturesPresentes +
+                ", creaturesPresentes=" + creaturesPresentes +
+                ", degresProprete=" + degresProprete +
+                "profondeur=" + profondeur +
+                ", saliniteEau=" + saliniteEau +
+                '}';
     }
 }

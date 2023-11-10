@@ -61,7 +61,7 @@ public abstract class Creatures {
 
     }
 
-    String getSex() {
+    public String getSex() {
         if (this.sexe==0){
             return "Male";
         } else if (this.sexe==1) {
@@ -69,6 +69,10 @@ public abstract class Creatures {
         } else {
             return "Non défini";
         }
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     // Méthode pour obtenir le nom de l'interface
