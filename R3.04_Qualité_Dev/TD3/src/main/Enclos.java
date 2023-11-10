@@ -18,6 +18,16 @@ public class Enclos {
         this.degresProprete = degresProprete;
     }
 
+    protected String getProprete() {
+        if (degresProprete==0){
+            return "mauvais";
+        } else if (degresProprete==1) {
+            return "correct";
+        } else {
+            return "bon";
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder toStringCreaturePresentes = new StringBuilder();
@@ -30,20 +40,25 @@ public class Enclos {
                 ", capaciteMax=" + capaciteMax +
                 ", nombreCreaturesPresentes=" + nombreCreaturesPresentes +
                 ", creaturesPresentes=" + toStringCreaturePresentes +
-                ", degresProprete=" + degresProprete +
+                ", propreté=" + getProprete() +
                 '}';
     }
 
     void ajouterCreature(Creatures creatures) {
-        if (!creaturesPresentes.isEmpty()) {
-            if (creaturesPresentes.get(0).type == creatures.type) {
-                creaturesPresentes.add(creatures);
+        if (creaturesPresentes.size()<capaciteMax){
+            if (!creaturesPresentes.isEmpty()) {
+                if (creaturesPresentes.get(0).type == creatures.type) {
+                    creaturesPresentes.add(creatures);
+                } else {
+                    System.out.println("Cet enclos ne contient pas la même espèce");
+                }
             } else {
-                System.out.println("Cet enclos ne contient pas la même espèce");
+                creaturesPresentes.add(creatures);
             }
         } else {
-            creaturesPresentes.add(creatures);
+            System.out.println("Cap");
         }
+
     }
     void nourrirCreatures() {
         for (Creatures crea: creaturesPresentes) {

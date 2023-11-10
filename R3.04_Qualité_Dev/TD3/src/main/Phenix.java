@@ -1,7 +1,7 @@
 package main;
 
 public class Phenix extends Ovipare implements Volant{
-    public Phenix(String nom, int age, String sexe, int poids, int taille) {
+    public Phenix(String nom, int age, int sexe, int poids, int taille) {
         this.nom = nom;
         this.age = age;
         this.sexe = sexe;
