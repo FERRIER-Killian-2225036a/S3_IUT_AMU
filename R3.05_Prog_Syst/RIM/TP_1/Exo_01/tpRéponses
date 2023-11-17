@@ -1,0 +1,31 @@
+Exo1:
+File1.cxx:3:12: fatal error: notreEntete.h: Aucun fichier ou dossier de ce type
+
+Question1:
+Car le fichier notreEntete.h est dans un autre dossier donc il n'est pas inclu lors de la compilation
+
+Question2:
+Le fichier .h va affecter l'ensemble des fichiers alors qu'un fichiers .cxx n'affecte pas tous les fichiers
+
+Exercice2:
+Question3:
+Cette commande va afficher les fichiers par date de modification (du plus récent au plus vieux)
+
+Question4:
+Seulement le fichier modifier, son output .o et l'executable .exec sont recompilé donc leurs date de modification changent
+
+Exercice3:
+Question5:
+Il ne restera que les fichiers File1.cxx et File2.cxx car "make clean" va supprimer tous les fichiers d'output .o et l'executable .exec
+
+Exercice4:
+Question6:
+Pour éviter la répétition
+
+Question7:
+make nom=File1
+
+Question8:
+L'option "-c" va créer un nouveau fichier d'archive s'il n'existe pas.
+L'option "-q" va ajouter les fichiers spécifiés à l'archive.
+Et l'option "-s" va mettre à jour l'index de l'archive, si nécessaire.

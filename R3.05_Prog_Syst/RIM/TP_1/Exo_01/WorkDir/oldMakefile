@@ -1,0 +1,14 @@
+COMPILER = g++ -c -I../Include
+
+$(nom).exec: $(nom).o File2.o
+	g++ -o $(nom).exec $(nom).o File2.o
+
+$(nom).o: $(nom).cxx ../Include/notreEntete.h
+	$(COMPILER) $(nom).cxx
+
+File2.o: File2.cxx ../Include/notreEntete.h
+	$(COMPILER) File2.cxx
+
+clean:
+	rm *.o File1.exec
+
