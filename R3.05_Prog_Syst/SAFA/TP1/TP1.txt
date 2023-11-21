@@ -1,0 +1,20 @@
+Q 1:
+	IPv4, TCP
+Q 2:
+	@ socket = IP+Port
+	bind() permet de préciser 
+	le type d'@ est sockaddr_in
+	port = 10013
+	IP = INADDR_ANY = 0.0.0.0 = Toutes interface réseau
+Q 3:
+	1 socket passive (d'écoute)
+	Autant de socket active que de client qui se connecte avec une limite de 10000 client
+
+Q 8:
+	Erreur "Adresse already in use"
+Q 9:
+	Erreur "Permission denied"
+Q 10:
+	Pas IP locale parce qu'écoute pas toutes interfaces réseaux
+Q 11:
+	(Voir fichier Q11.out)
