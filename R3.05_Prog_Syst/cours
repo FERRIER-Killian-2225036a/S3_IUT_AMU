@@ -1,0 +1,4 @@
+Cours sur les signaux:
+  un signal = mécanisme système d'exploitation pour annoncer aux processus de manière asynchrone
+  UNIX -> 31 signaux différents
+  Pas connaître les 31 mais savoir les constantes
